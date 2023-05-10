@@ -1,14 +1,40 @@
-import logo from "./logo.svg";
-import "./App.css";
+import Home from "./Pages/home/Home";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Profile from "./Pages/profile/Profile";
+import Navbar from "./components/navbar/Navbar";
 
-export default function App() {
+function App() {
+  const Layout = () => {
+    return (
+      <div>
+        <Navbar />
+        <Outlet />
+      </div>
+    );
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+      ],
+    },
+  ]);
+
   return (
-    <div className="App">
-      <span id="node-version"></span>
-      <br />
-      <span id="chrome-version"></span>
-      <br />
-      <span id="electron-version"></span>
+    <div>
+      <RouterProvider router={router} />
     </div>
   );
 }
+
+export default App;
